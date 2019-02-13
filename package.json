@@ -1,0 +1,31 @@
+{
+  "name": "osa_3_puhelinluettelon_backend",
+  "version": "0.0.1",
+  "description": "",
+  "main": "build/index.html",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samvancart/full_stack_osa_3.git"
+  },
+  "author": "samvancart",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samvancart/full_stack_osa_3/issues"
+  },
+  "homepage": "https://github.com/samvancart/full_stack_osa_3#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.11",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
