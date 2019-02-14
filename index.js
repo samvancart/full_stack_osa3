@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
@@ -38,13 +39,9 @@ app.get('/api/persons', (req, res) => {
 
 
 app.get('/api/persons/:id', (req, res) => {
-    const id = Number(req.params.id)
-    const person = persons.find(person => person.id === id)
-    if (person) {
-        res.json(person)
-    } else {
-        res.status(404).end()
-    }
+    Person.findById(req.params.id).then(person=>{
+        res.json(person.toJSON())
+    })
 })
 
 app.delete('/api/persons/:id', (req, res) => {
@@ -54,12 +51,12 @@ app.delete('/api/persons/:id', (req, res) => {
     res.status(204).end();
 })
 
-const generateId = () => {
-    let min = Math.ceil(6)
-    let max = Math.floor(10000)
-    let newId = Math.floor(Math.random() * (max - min)) + min;
-    return newId
-}
+// const generateId = () => {
+//     let min = Math.ceil(6)
+//     let max = Math.floor(10000)
+//     let newId = Math.floor(Math.random() * (max - min)) + min;
+//     return newId
+// }
 
 app.post('/api/persons', (req, res) => {
     const body = req.body
@@ -76,25 +73,26 @@ app.post('/api/persons', (req, res) => {
         })
     }
 
-    const name = body.name
-    const personName = persons.find(person => person.name.toLowerCase() === name.toLowerCase())
+    // const name = body.name
+    // const personName = persons.find(person => person.name.toLowerCase() === name.toLowerCase())
 
 
-    if (personName) {
-        return res.status(400).json({
-            error: 'name must be unique'
-        })
-    }
+    // if (personName) {
+    //     return res.status(400).json({
+    //         error: 'name must be unique'
+    //     })
+    // }
 
-    const person = {
+    const person = new Person({
         name: body.name,
         number: body.number,
-        id: generateId(),
-    }
+    })
 
-    persons = persons.concat(person)
+    person.save().then(savedPerson =>{
+        res.json(savedPerson.toJSON())
+    })
 
-    res.json(person)
+    
 })
 
 
